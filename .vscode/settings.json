@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "*.txt": "asl",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "cstdlib": "cpp",
+        "random": "cpp",
+        "*.tcc": "cpp",
+        "functional": "cpp"
     }
 }

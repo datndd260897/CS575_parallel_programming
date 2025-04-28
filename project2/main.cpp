@@ -13,7 +13,7 @@ float NowPrecip = 0.0;     // Precipitation
 float NowTemp = 0.0;       // Temperature
 float NowHeight = 5.0;     // Starting grain height (inches)
 int NowNumDeer = 2;        // Starting number of deer
-int NowNumWolves = 0;      // Starting number of wolves
+int NowNumWolves = 1;      // Starting number of wolves
 
 // Constants
 const float GRAIN_GROWS_PER_MONTH = 12.0;
