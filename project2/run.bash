@@ -1,3 +1,3 @@
 #!/bin/bash
-g++   main.cpp -o src  -lm  -fopenmp
+g++   main.cpp -o project2  -lm  -fopenmp
 ./project2
