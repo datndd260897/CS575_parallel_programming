@@ -129,16 +129,12 @@ void Watcher() {
         WaitBarrier();
 
         // Print current state of the system
-        cout << "Year: " << NowYear << " Month: " << NowMonth
+        cout << " Month: " << NowMonth
              << " Precip: " << NowPrecip << " Temp: " << NowTemp
              << " Grain Height: " << NowHeight << " Deer Population: " << NowNumDeer << endl;
 
         // Increment month
         NowMonth++;
-        if (NowMonth == 12) {
-            NowMonth = 0;
-            NowYear++;
-        }
 
         // DoneAssigning barrier
         WaitBarrier();
