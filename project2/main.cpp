@@ -132,11 +132,13 @@ void Deer() {
     }
 }
 
+// Your Own Agent (Wolves Population Growth)
 void MyAgent() {
     while (NowYear < 2031) {
         // Wolves grow based on the deer population (if there are more deer, wolves grow)
         if (NowNumDeer > 0) {  // Wolves only grow if there are some deer to sustain them
-            float newWolves = NowNumDeer * WOLF_GROWS_PER_MONTH;
+            // Increase the growth rate of wolves (can adjust this value as needed)
+            float newWolves = NowNumDeer * WOLF_GROWS_PER_MONTH;  // Increased growth factor
             NowNumWolves += (int)newWolves;  // Increment the number of wolves
 
             // Ensure the wolf population doesn't get too large (realistic upper bound)
