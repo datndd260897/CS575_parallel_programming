@@ -13,6 +13,7 @@ float NowPrecip = 0.0;     // Precipitation
 float NowTemp = 0.0;       // Temperature
 float NowHeight = 5.0;     // Starting grain height (inches)
 int NowNumDeer = 2;        // Starting number of deer
+int NowNumWolves = 0;      // Starting number of wolves
 
 // Constants
 const float GRAIN_GROWS_PER_MONTH = 12.0;
@@ -25,6 +26,8 @@ const float AMP_TEMP = 20.0;
 const float RANDOM_TEMP = 10.0;
 const float MIDTEMP = 40.0;
 const float MIDPRECIP = 10.0;
+const float WOLF_EATS_DEER_PER_MONTH = 0.2;  // Percentage of deer eaten by wolves each month (per wolf)
+const float WOLF_GROWS_PER_MONTH = 0.05;     // Wolf population growth factor (depends on deer population)
 
 unsigned int seed = 0;
 
@@ -97,20 +100,26 @@ void Grain() {
     }
 }
 
-// Deer Population Function
+// Deer Population Function with wolves affecting deer population
 void Deer() {
     while (NowYear < 2031) {
         // Compute next deer population based on grain height (carrying capacity)
         int nextNumDeer = NowNumDeer;
         int carryingCapacity = (int)(NowHeight);
 
+        // Wolves reduce deer population each month
+        int wolvesEatingDeer = (int)(NowNumWolves * WOLF_EATS_DEER_PER_MONTH);
+        nextNumDeer -= wolvesEatingDeer;
+
+        // Make sure the deer population doesn't go below zero
+        if (nextNumDeer < 0) nextNumDeer = 0;
+
+        // If deer population is below the carrying capacity, it can increase
         if (nextNumDeer < carryingCapacity) {
             nextNumDeer++;
         } else if (nextNumDeer > carryingCapacity) {
             nextNumDeer--;
         }
-
-        if (nextNumDeer < 0) nextNumDeer = 0;
 
         // DoneComputing barrier
         WaitBarrier();
@@ -123,13 +132,33 @@ void Deer() {
     }
 }
 
+// Your Own Agent (Wolves Population Growth)
+void MyAgent() {
+    while (NowYear < 2031) {
+        // Wolves grow based on the deer population (if there are more deer, wolves grow)
+        float newWolves = NowNumDeer * WOLF_GROWS_PER_MONTH;
+        NowNumWolves += (int)newWolves;  // Increment the number of wolves
+
+        // Make sure the wolf population doesn't get too large (realistic upper bound)
+        if (NowNumWolves > NowNumDeer * 2) {  // Max number of wolves can be 2x the number of deer
+            NowNumWolves = NowNumDeer * 2;
+        }
+
+        // DoneComputing barrier
+        WaitBarrier();
+
+        // DoneAssigning barrier
+        WaitBarrier();
+    }
+}
+
 // Watcher Function (to print the state of the system to CSV)
 void Watcher() {
     // Create an output file stream and open a CSV file
     ofstream outFile("simulation_output.csv");
 
     // Write headers to the CSV file
-    outFile << "Months,Temp(C),Precip(cm),Height(cm),Deers" << endl;
+    outFile << "Months,Temp(C),Precip(cm),Height(cm),Deers,Wolves" << endl;
 
     while (NowYear < 2031) {
         // DoneComputing barrier
@@ -145,7 +174,7 @@ void Watcher() {
         float precipInCm = NowPrecip * 2.54;  // Convert inches to cm
 
         // Write the data to the CSV file
-        outFile << NowMonth << " , " << tempInC << " , " << precipInCm << " , " << heightInCm << " , " << NowNumDeer << endl;
+        outFile << NowMonth << " , " << tempInC << " , " << precipInCm << " , " << heightInCm << " , " << NowNumDeer << " , " << NowNumWolves << endl;
 
         // Increment month
         NowMonth++;
@@ -162,22 +191,6 @@ void Watcher() {
 
     // Close the file after the simulation ends
     outFile.close();
-}
-
-// Your Own Agent (e.g., Farmer Agent)
-void MyAgent() {
-    while (NowYear < 2031) {
-        // Example: Farmer intervention
-        if (NowHeight < 10.0 && NowTemp > 90.0) {
-            NowHeight += 5.0;  // Farmer intervention boosts growth
-        }
-
-        // DoneComputing barrier
-        WaitBarrier();
-
-        // DoneAssigning barrier
-        WaitBarrier();
-    }
 }
 
 int main() {
@@ -210,7 +223,7 @@ int main() {
 
         #pragma omp section
         {
-            MyAgent();  // Your custom agent
+            MyAgent();  // Your custom agent (wolves population growth)
         }
     }
 
