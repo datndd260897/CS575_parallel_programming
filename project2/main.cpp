@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>  // For file output
 #include <cmath>
 #include <omp.h>
 #include <cstdlib>
@@ -122,11 +123,14 @@ void Deer() {
     }
 }
 
-// Watcher Function (to print the state of the system)
+// Watcher Function (to print the state of the system to CSV)
 void Watcher() {
-    // Print headers once at the start
-    cout << "Months,Temp(C),Precip(cm),Height(cm),Deers" << endl;
-    
+    // Create an output file stream and open a CSV file
+    ofstream outFile("simulation_output.csv");
+
+    // Write headers to the CSV file
+    outFile << "Months,Temp(C),Precip(cm),Height(cm),Deers" << endl;
+
     while (NowYear < 2031) {
         // DoneComputing barrier
         WaitBarrier();
@@ -140,8 +144,8 @@ void Watcher() {
         // Convert precipitation from inches to centimeters
         float precipInCm = NowPrecip * 2.54;  // Convert inches to cm
 
-        // Print the data in the table format
-        printf("%d , %.2f , %.2f , %.2f , %d\n", NowMonth, tempInC, precipInCm, heightInCm, NowNumDeer);
+        // Write the data to the CSV file
+        outFile << NowMonth << " , " << tempInC << " , " << precipInCm << " , " << heightInCm << " , " << NowNumDeer << endl;
 
         // Increment month
         NowMonth++;
@@ -155,6 +159,9 @@ void Watcher() {
         // DonePrinting barrier
         WaitBarrier();
     }
+
+    // Close the file after the simulation ends
+    outFile.close();
 }
 
 // Your Own Agent (e.g., Farmer Agent)
