@@ -124,13 +124,15 @@ void Deer() {
 
 // Watcher Function (to print the state of the system)
 void Watcher() {
-    cout << "Months\tTemp(C)\tPrecip(cm)\tHeight(cm)\tDeers\tWolves" << endl;
+    cout << "Months\tTemp(C)\tPrecip(cm)\tHeight(cm)\tDeers" << endl;
     while (NowYear < 2031) {
         // DoneComputing barrier
         WaitBarrier();
 
+             printf("%d\t%.2f\t%.2f\t%.2f\t%d\n", NowMonth, NowTemp, NowPrecip, NowHeight, NowNumDeer);
+
         // Print current state of the system
-        printf("%d\t%.2f\t%.2f\t%.2f\t%d\t%d\n", NowMonth, tempInC, precipInCm, heightInCm, NowNumDeer, 0);
+
 
         // Increment month
         NowMonth++;
