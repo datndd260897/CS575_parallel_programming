@@ -124,19 +124,29 @@ void Deer() {
 
 // Watcher Function (to print the state of the system)
 void Watcher() {
+    // Print headers once at the start
     cout << "Months\tTemp(C)\tPrecip(cm)\tHeight(cm)\tDeers" << endl;
+    
     while (NowYear < 2031) {
         // DoneComputing barrier
         WaitBarrier();
 
-             printf("%d\t%.2f\t%.2f\t%.2f\t%d\n", NowMonth, NowTemp, NowPrecip, NowHeight, NowNumDeer);
+        // Convert temperature from Fahrenheit to Celsius
+        float tempInC = (5.0 / 9.0) * (NowTemp - 32);  // °C = (5./9.) * (°F - 32)
 
-        // Print current state of the system
+        // Convert height from inches to centimeters
+        float heightInCm = NowHeight * 2.54;  // Convert inches to cm
 
+        // Convert precipitation from inches to centimeters
+        float precipInCm = NowPrecip * 2.54;  // Convert inches to cm
+
+        // Print the data in the table format
+        printf("%d\t%.2f\t%.2f\t%.2f\t%d\n", NowMonth, tempInC, precipInCm, heightInCm, NowNumDeer);
 
         // Increment month
         NowMonth++;
-        if (NowMonth % 12 == 0) {
+        if (NowMonth == 12) {
+            NowMonth = 0;
             NowYear++;
         }
 
