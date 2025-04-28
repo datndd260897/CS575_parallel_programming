@@ -27,7 +27,6 @@ const float RANDOM_TEMP = 10.0;
 const float MIDTEMP = 40.0;
 const float MIDPRECIP = 10.0;
 const float WOLF_EATS_DEER_PER_MONTH = 0.2;  // Percentage of deer eaten by wolves each month (per wolf)
-const float WOLF_GROWS_PER_MONTH = 0.05;     // Wolf population growth factor (depends on deer population)
 
 unsigned int seed = 0;
 
@@ -132,19 +131,14 @@ void Deer() {
     }
 }
 
-// Your Own Agent (Wolves Population Growth)
+// Your Own Agent (Control Wolves based on Deer Population)
 void MyAgent() {
     while (NowYear < 2031) {
-        // Wolves grow based on the deer population (if there are more deer, wolves grow)
-        if (NowNumDeer > 0) {  // Wolves only grow if there are some deer to sustain them
-            // Increase the growth rate of wolves (can adjust this value as needed)
-            float newWolves = NowNumDeer * WOLF_GROWS_PER_MONTH;  // Increased growth factor
-            NowNumWolves += (int)newWolves;  // Increment the number of wolves
-
-            // Ensure the wolf population doesn't get too large (realistic upper bound)
-            if (NowNumWolves > NowNumDeer * 2) {  // Max number of wolves can be 2x the number of deer
-                NowNumWolves = NowNumDeer * 2;
-            }
+        // Control the wolf population based on the number of deer
+        if (NowNumDeer >= 4) {
+            NowNumWolves++;  // Increase wolves by 1 if deer are >= 4
+        } else if (NowNumDeer < 4 && NowNumWolves > 1) {
+            NowNumWolves--;  // Decrease wolves by 1 if deer are < 4, but don't go below 1 wolf
         }
 
         // DoneComputing barrier
