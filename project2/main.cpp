@@ -131,7 +131,7 @@ void Deer() {
     }
 }
 
-// Your Own Agent (Control Wolves based on Deer Population)
+// Your Own Agent (Control Wolves based on Deer Population with Mortality)
 void MyAgent() {
     while (NowYear < 2031) {
         // Control the wolf population based on the number of deer
@@ -139,6 +139,19 @@ void MyAgent() {
             NowNumWolves++;  // Increase wolves by 1 if deer are >= 4
         } else if (NowNumDeer < 4 && NowNumWolves > 1) {
             NowNumWolves--;  // Decrease wolves by 1 if deer are < 4, but don't go below 1 wolf
+        }
+
+        // Implement wolf mortality if wolves outnumber deer
+        if (NowNumWolves > NowNumDeer) {
+            // Mortality is proportional to the difference between wolves and deer
+            float wolfDeathRate = 0.1; // Adjust this value to control the death rate
+            int wolvesToDie = (int)((NowNumWolves - NowNumDeer) * wolfDeathRate);
+            NowNumWolves -= wolvesToDie;
+
+            // Ensure wolves don't die below 1
+            if (NowNumWolves < 1) {
+                NowNumWolves = 1;
+            }
         }
 
         // DoneComputing barrier
@@ -220,7 +233,7 @@ int main() {
 
         #pragma omp section
         {
-            MyAgent();  // Your custom agent (wolves population growth)
+            MyAgent();  // Your custom agent (wolves population growth with mortality)
         }
     }
 
