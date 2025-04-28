@@ -145,7 +145,7 @@ void Watcher() {
 
         // Increment month
         NowMonth++;
-        if (NowMonth == 12) {
+        if (NowMonth % 12 == 0) {
             NowYear++;
         }
 
