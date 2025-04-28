@@ -125,7 +125,7 @@ void Deer() {
 // Watcher Function (to print the state of the system)
 void Watcher() {
     // Print headers once at the start
-    cout << "Months\tTemp(C)\tPrecip(cm)\tHeight(cm)\tDeers" << endl;
+    cout << "Months,Temp(C),Precip(cm),Height(cm),Deers" << endl;
     
     while (NowYear < 2031) {
         // DoneComputing barrier
@@ -141,7 +141,7 @@ void Watcher() {
         float precipInCm = NowPrecip * 2.54;  // Convert inches to cm
 
         // Print the data in the table format
-        printf("%d\t%.2f\t%.2f\t%.2f\t%d\n", NowMonth, tempInC, precipInCm, heightInCm, NowNumDeer);
+        printf("%d , %.2f , %.2f , %.2f , %d\n", NowMonth, tempInC, precipInCm, heightInCm, NowNumDeer);
 
         // Increment month
         NowMonth++;
