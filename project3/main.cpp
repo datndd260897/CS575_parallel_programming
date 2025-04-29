@@ -23,7 +23,6 @@
 // how many tries to discover the maximum performance:
 #define NUMTRIES	30
 
-#define CSV
 
 struct city
 {
