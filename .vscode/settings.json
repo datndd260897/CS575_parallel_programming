@@ -5,6 +5,7 @@
         "cstdlib": "cpp",
         "random": "cpp",
         "*.tcc": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "*.data": "cpp"
     }
 }
