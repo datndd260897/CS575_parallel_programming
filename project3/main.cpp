@@ -23,8 +23,6 @@
 // how many tries to discover the maximum performance:
 #define NUMTIMES	20
 
-#define CSV
-
 struct city
 {
 	std::string	name;
