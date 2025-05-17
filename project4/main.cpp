@@ -12,17 +12,12 @@
 #define SSE_WIDTH	4
 #define ALIGNED		__attribute__((aligned(16)))
 
-#ifndef NUMT
-#define NUMT	         1	// number of threads to use
-#endif
 
 #define NUMTRIES	100
 
 #ifndef ARRAYSIZE
 #define ARRAYSIZE	1024*1024
 #endif
-
-#define NUM_ELEMENTS_PER_CORE ( ARRAYSIZE / NUMT )
 
 ALIGNED float A[ARRAYSIZE];
 ALIGNED float B[ARRAYSIZE];
@@ -34,20 +29,20 @@ void	NonSimdMul( float *, float *,  float *, int );
 float	SimdMulSum(    float *, float *, int );
 float	NonSimdMulSum( float *, float *, int );
 
-
+// #define NUMT 2
+#define NUM_ELEMENTS_PER_CORE ( ARRAYSIZE / NUMT )
 int
 main( int argc, char *argv[ ] )
 {
-	omp_set_num_threads( NUMT );    // set the number of threads to use in parallelizing the for-loop
-
+	
+	omp_set_num_threads(NUMT);
 	for( int i = 0; i < ARRAYSIZE; i++ )
 	{
 		A[i] = sqrtf( (float)(i+1) );
 		B[i] = sqrtf( (float)(i+1) );
 	}
 
-	fprintf( stderr, "%12d, ", ARRAYSIZE );
-	fprintf( stderr, "%2d, ", NUMT );
+	fprintf( stderr, "%12d\t,", ARRAYSIZE );
 
 	double maxPerformance = 0.;
 	for( int t = 0; t < NUMTRIES; t++ )
@@ -60,7 +55,7 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	double megaMults = maxPerformance / 1000000.;
-	fprintf( stderr, "%10.2lf, ", megaMults );
+	fprintf( stderr, "%10.2lf\t,", megaMults );
 	double mmn = megaMults;
 
 
@@ -75,31 +70,10 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	megaMults = maxPerformance / 1000000.;
-	fprintf( stderr, "%10.2lf, ", megaMults );
+	fprintf( stderr, "%10.2lf\t,", megaMults );
 	double mms = megaMults;
 	double speedup = mms/mmn;
-	fprintf( stderr, "%6.2lf, ", speedup );
-	
-	maxPerformance = 0.;
-	for( int t = 0; t < NUMTRIES; t++ )
-	{
-		double time0 = omp_get_wtime( );
-		#pragma omp parallel
-		{
-			int thisThread = omp_get_thread_num( );
-			int first = thisThread * NUM_ELEMENTS_PER_CORE;
-			SimdMul( &A[first], &B[first], &C[first], NUM_ELEMENTS_PER_CORE );
-		}
-		double time1 = omp_get_wtime( );
-		double perf = (double)ARRAYSIZE / (time1 - time0);
-		if( perf > maxPerformance )
-			maxPerformance = perf;
-	}
-	megaMults = maxPerformance / 1000000.;
-	fprintf( stderr, "%10.2lf, ", megaMults );
-	mms = megaMults;
-	speedup = mms/mmn;
-	fprintf( stderr, "%6.2lf, ", speedup );
+	fprintf( stderr, "%6.2lf\t,", speedup );
 
 
 	maxPerformance = 0.;
@@ -114,7 +88,7 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	double megaMultAdds = maxPerformance / 1000000.;
-	fprintf( stderr, "%10.2lf, ", megaMultAdds );
+	fprintf( stderr, "%10.2lf\t,", megaMultAdds );
 	mmn = megaMultAdds;
 
 
@@ -129,33 +103,38 @@ main( int argc, char *argv[ ] )
 			maxPerformance = perf;
 	}
 	megaMultAdds = maxPerformance / 1000000.;
-	fprintf( stderr, "%10.2lf, ", megaMultAdds );
+	fprintf( stderr, "%10.2lf\t,", megaMultAdds );
 	mms = megaMultAdds;
 	speedup = mms/mmn;
-	fprintf( stderr, "%6.2lf, ", speedup );
-	
-	sums = 0.;
+	fprintf( stderr, "%6.2lf\t,", speedup );
+	//fprintf( stderr, "[ %8.1f , %8.1f , %8.1f ]\n", C[ARRAYSIZE-1], sumn, sums );
+
 	maxPerformance = 0.;
+	
 	for( int t = 0; t < NUMTRIES; t++ )
 	{
+		float sumt = 0;
 		double time0 = omp_get_wtime( );
-		#pragma omp parallel reduction(+:sums)
-		{
-			int thisThread = omp_get_thread_num( );
-			int first = thisThread * NUM_ELEMENTS_PER_CORE;
-			sums += SimdMulSum( &A[first], &B[first], NUM_ELEMENTS_PER_CORE );
-		}
+
+		#pragma omp parallel reduction(+:sumt)
+    	{
+        	int thisThread = omp_get_thread_num();
+        	int first = thisThread * NUM_ELEMENTS_PER_CORE;
+
+        	SimdMul(&A[first], &B[first], &C[first], NUM_ELEMENTS_PER_CORE);
+    	}
+
 		double time1 = omp_get_wtime( );
 		double perf = (double)ARRAYSIZE / (time1 - time0);
 		if( perf > maxPerformance )
 			maxPerformance = perf;
 	}
 	megaMultAdds = maxPerformance / 1000000.;
-	fprintf( stderr, "%10.2lf, ", megaMultAdds );
+	fprintf( stderr, "%10.2lf\t,", megaMultAdds );
 	mms = megaMultAdds;
 	speedup = mms/mmn;
-	fprintf( stderr, "%6.2lf\n", speedup );
-	//fprintf( stderr, "[ %8.1f , %8.1f , %8.1f ]\n", C[ARRAYSIZE-1], sumn, sums );
+	fprintf( stderr, "%6.2lf\n,", speedup );
+
 
 	return 0;
 }
@@ -164,21 +143,21 @@ main( int argc, char *argv[ ] )
 void
 NonSimdMul( float *A, float *B, float *C, int n )
 {
-	for (int i = 0; i < n; i++)
-    {
-        C[i] = A[i] * B[i];
-    }
+	for( int i = 0; i < n; i++ )
+	{
+		C[i] = A[i] * B[i];
+	}
 }
 
 float
 NonSimdMulSum( float *A, float *B, int n )
 {
 	float sum = 0.0;
-    for (int i = 0; i < n; i++)
-    {
-        sum += A[i] * B[i];
-    }
-    return sum;
+	for( int i = 0; i < n; i++ )
+	{
+		sum += A[i] * B[i];
+	}
+	return sum;
 }
 
 
@@ -213,7 +192,6 @@ SimdMul( float *a, float *b,   float *c,   int len )
 	{
 		c[i] = a[i] * b[i];
 	}
-
 }
 
 
