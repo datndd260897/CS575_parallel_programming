@@ -121,7 +121,7 @@ main( int argc, char *argv[ ] )
         	int thisThread = omp_get_thread_num();
         	int first = thisThread * NUM_ELEMENTS_PER_CORE;
 
-        	SimdMul(&A[first], &B[first], &C[first], NUM_ELEMENTS_PER_CORE);
+        	sumt+=SimdMulSum(&A[first], &B[first], NUM_ELEMENTS_PER_CORE);
     	}
 
 		double time1 = omp_get_wtime( );
@@ -134,7 +134,6 @@ main( int argc, char *argv[ ] )
 	mms = megaMultAdds;
 	speedup = mms/mmn;
 	fprintf( stderr, "%6.2lf\n,", speedup );
-
 
 	return 0;
 }
