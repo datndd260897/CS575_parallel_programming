@@ -2,7 +2,7 @@
 SIZE=1024
 LIMIT=9000000
 echo 'SIZE, NUMT, Mul Pnon-sse, Mul Psse, Mul S, MulOMP Psse, MulOMP S, MulSum Pnon-sse, MulSum Psse, MulSum S, MulSumOMP Psse, MulSumOMP S'
-for t in 2 4 6
+for t in 1 2 4 6
 do
     while [ $SIZE -le $LIMIT ]
     do
