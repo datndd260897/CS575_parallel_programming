@@ -1,0 +1,60 @@
+Running with DATASIZE=4096 and LOCALSIZE=8
+Array Size:     4096 , Work Elements:    8 , MegaPointsProcessedPerSecond:      32.77, (    1.5,    3.5,    9.0)
+Running with DATASIZE=4096 and LOCALSIZE=32
+Array Size:     4096 , Work Elements:   32 , MegaPointsProcessedPerSecond:      35.36, (    1.5,    3.5,    9.0)
+Running with DATASIZE=4096 and LOCALSIZE=64
+Array Size:     4096 , Work Elements:   64 , MegaPointsProcessedPerSecond:      37.17, (    1.5,    3.5,    9.0)
+Running with DATASIZE=4096 and LOCALSIZE=128
+Array Size:     4096 , Work Elements:  128 , MegaPointsProcessedPerSecond:      38.95, (    1.5,    3.5,    9.0)
+Running with DATASIZE=4096 and LOCALSIZE=256
+Array Size:     4096 , Work Elements:  256 , MegaPointsProcessedPerSecond:      42.92, (    1.5,    3.5,    9.0)
+Running with DATASIZE=16384 and LOCALSIZE=8
+Array Size:    16384 , Work Elements:    8 , MegaPointsProcessedPerSecond:     142.62, (    1.5,    3.5,    9.0)
+Running with DATASIZE=16384 and LOCALSIZE=32
+Array Size:    16384 , Work Elements:   32 , MegaPointsProcessedPerSecond:     157.04, (    1.5,    3.5,    9.0)
+Running with DATASIZE=16384 and LOCALSIZE=64
+Array Size:    16384 , Work Elements:   64 , MegaPointsProcessedPerSecond:     194.83, (    1.5,    3.5,    9.0)
+Running with DATASIZE=16384 and LOCALSIZE=128
+Array Size:    16384 , Work Elements:  128 , MegaPointsProcessedPerSecond:     157.45, (    1.5,    3.5,    9.0)
+Running with DATASIZE=16384 and LOCALSIZE=256
+Array Size:    16384 , Work Elements:  256 , MegaPointsProcessedPerSecond:     141.13, (    1.5,    3.5,    9.0)
+Running with DATASIZE=65536 and LOCALSIZE=8
+Array Size:    65536 , Work Elements:    8 , MegaPointsProcessedPerSecond:     138.82, (    1.4,    3.5,    9.0)
+Running with DATASIZE=65536 and LOCALSIZE=32
+Array Size:    65536 , Work Elements:   32 , MegaPointsProcessedPerSecond:     161.34, (    1.4,    3.5,    9.0)
+Running with DATASIZE=65536 and LOCALSIZE=64
+Array Size:    65536 , Work Elements:   64 , MegaPointsProcessedPerSecond:     180.14, (    1.4,    3.5,    9.0)
+Running with DATASIZE=65536 and LOCALSIZE=128
+Array Size:    65536 , Work Elements:  128 , MegaPointsProcessedPerSecond:     155.53, (    1.4,    3.5,    9.0)
+Running with DATASIZE=65536 and LOCALSIZE=256
+Array Size:    65536 , Work Elements:  256 , MegaPointsProcessedPerSecond:     142.12, (    1.4,    3.5,    9.0)
+Running with DATASIZE=262144 and LOCALSIZE=8
+Array Size:   262144 , Work Elements:    8 , MegaPointsProcessedPerSecond:     242.35, (    1.5,    3.5,    9.0)
+Running with DATASIZE=262144 and LOCALSIZE=32
+Array Size:   262144 , Work Elements:   32 , MegaPointsProcessedPerSecond:     235.12, (    1.5,    3.5,    9.0)
+Running with DATASIZE=262144 and LOCALSIZE=64
+Array Size:   262144 , Work Elements:   64 , MegaPointsProcessedPerSecond:     257.11, (    1.5,    3.5,    9.0)
+Running with DATASIZE=262144 and LOCALSIZE=128
+Array Size:   262144 , Work Elements:  128 , MegaPointsProcessedPerSecond:     244.61, (    1.5,    3.5,    9.0)
+Running with DATASIZE=262144 and LOCALSIZE=256
+Array Size:   262144 , Work Elements:  256 , MegaPointsProcessedPerSecond:     233.80, (    1.5,    3.5,    9.0)
+Running with DATASIZE=1048576 and LOCALSIZE=8
+Array Size:  1048576 , Work Elements:    8 , MegaPointsProcessedPerSecond:     706.88, (    1.5,    3.5,    9.0)
+Running with DATASIZE=1048576 and LOCALSIZE=32
+Array Size:  1048576 , Work Elements:   32 , MegaPointsProcessedPerSecond:    1113.97, (    1.5,    3.5,    9.0)
+Running with DATASIZE=1048576 and LOCALSIZE=64
+Array Size:  1048576 , Work Elements:   64 , MegaPointsProcessedPerSecond:     860.88, (    1.5,    3.5,    9.0)
+Running with DATASIZE=1048576 and LOCALSIZE=128
+Array Size:  1048576 , Work Elements:  128 , MegaPointsProcessedPerSecond:     837.35, (    1.5,    3.5,    9.0)
+Running with DATASIZE=1048576 and LOCALSIZE=256
+Array Size:  1048576 , Work Elements:  256 , MegaPointsProcessedPerSecond:     854.75, (    1.5,    3.5,    9.0)
+Running with DATASIZE=4194304 and LOCALSIZE=8
+Array Size:  4194304 , Work Elements:    8 , MegaPointsProcessedPerSecond:    1363.02, (    1.5,    3.5,    9.0)
+Running with DATASIZE=4194304 and LOCALSIZE=32
+Array Size:  4194304 , Work Elements:   32 , MegaPointsProcessedPerSecond:    2075.81, (    1.5,    3.5,    9.0)
+Running with DATASIZE=4194304 and LOCALSIZE=64
+Array Size:  4194304 , Work Elements:   64 , MegaPointsProcessedPerSecond:    2334.17, (    1.5,    3.5,    9.0)
+Running with DATASIZE=4194304 and LOCALSIZE=128
+Array Size:  4194304 , Work Elements:  128 , MegaPointsProcessedPerSecond:    2174.46, (    1.5,    3.5,    9.0)
+Running with DATASIZE=4194304 and LOCALSIZE=256
+Array Size:  4194304 , Work Elements:  256 , MegaPointsProcessedPerSecond:    2205.26, (    1.5,    3.5,    9.0)
