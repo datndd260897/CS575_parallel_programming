@@ -271,7 +271,8 @@ main( int argc, char *argv[ ] )
 		DATASIZE, LOCALSIZE, (double)DATASIZE/(time1-time0)/1000000. );
 #else
 	fprintf( stderr, "Array Size: %8d , Work Elements: %4d , MegaPointsProcessedPerSecond: %10.2lf, (%7.1f,%7.1f,%7.1f)\n",
-		DATASIZE, LOCALSIZE, (double)DATASIZE/(time1-time0)/1000000., Q, L, C );
+    DATASIZE, LOCALSIZE, (double)DATASIZE/(time1-time0)/1000000., Q, L, C );
+
 #endif
 
 
