@@ -1,24 +1,47 @@
 #!/bin/bash
-# Define variables for SLURM job and MPI configuration
 
-NUM_NODES=8
-TOTAL_MPI_TASKS=8
-MPI_PROCESSES_PER_NODE=4
-
-#SBATCH -J proj07Fourier
+#SBATCH -J proj07FourierTests
 #SBATCH -A cs475-575
 #SBATCH -p classmpitest
-#SBATCH -N $NUM_NODES           # Number of nodes requested
-#SBATCH -n $TOTAL_MPI_TASKS     # Total number of MPI tasks/processes
-#SBATCH -o proj07.out           # Standard output file
-#SBATCH -e proj07.err           # Standard error file
+#SBATCH -o proj07_%j.out
+#SBATCH -e proj07_%j.err
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=nguyedin@oregonstate.edu
 
 module load openmpi
 
-# Compile your project
-mpic++ proj07.cpp -o proj07 -lm
+# Elements array (number of elements)
+ELEMENTS_LIST=(1048576 524288)
 
-# Run the program with specified MPI processes per node
-mpiexec -mca btl self,tcp -np $TOTAL_MPI_TASKS ./proj07
+# Nodes to test
+NODES_LIST=(1 2 4 6 8)
+
+# Loop over number of elements and nodes
+for NUMELEMENTS in "${ELEMENTS_LIST[@]}"
+do
+  echo "Testing NUMELEMENTS=$NUMELEMENTS"
+  
+  # Here we modify the source code to set NUMELEMENTS and recompile
+  # We'll do a simple sed to replace the #define NUMELEMENTS line
+  sed -i "s/#define NUMELEMENTS.*$/#define NUMELEMENTS\t($NUMELEMENTS)/" proj07.cpp
+  
+  # Compile
+  mpic++ proj07.cpp -o proj07 -lm
+  if [ $? -ne 0 ]; then
+    echo "Compilation failed for NUMELEMENTS=$NUMELEMENTS!"
+    exit 1
+  fi
+  
+  for NNODES in "${NODES_LIST[@]}"
+  do
+    echo "Running with $NNODES nodes (processes)"
+    
+    # Run MPI with NNODES processes
+    mpiexec -mca btl self,tcp -np $NNODES ./proj07
+    
+    echo "----------------------------------------"
+  done
+  
+done
+
+echo "All tests done."
