@@ -1,0 +1,75 @@
+Testing NUMELEMENTS=1048576
+Running with 1 nodes (processes)
+Node   0 entered DoOneLocalFourier( )
+  1 processors,    1048576 elements,     41.59 mega-sums per second
+----------------------------------------
+Running with 2 nodes (processes)
+Node   0 entered DoOneLocalFourier( )
+Node   1 entered DoOneLocalFourier( )
+  2 processors,    1048576 elements,     81.42 mega-sums per second
+----------------------------------------
+Running with 4 nodes (processes)
+Node   1 entered DoOneLocalFourier( )
+Node   2 entered DoOneLocalFourier( )
+Node   0 entered DoOneLocalFourier( )
+Node   3 entered DoOneLocalFourier( )
+  4 processors,    1048576 elements,    148.98 mega-sums per second
+----------------------------------------
+Running with 6 nodes (processes)
+Node   1 entered DoOneLocalFourier( )
+Node   2 entered DoOneLocalFourier( )
+Node   3 entered DoOneLocalFourier( )
+Node   4 entered DoOneLocalFourier( )
+Node   0 entered DoOneLocalFourier( )
+Node   5 entered DoOneLocalFourier( )
+  6 processors,    1048576 elements,    215.96 mega-sums per second
+----------------------------------------
+Running with 8 nodes (processes)
+Node   1 entered DoOneLocalFourier( )
+Node   2 entered DoOneLocalFourier( )
+Node   3 entered DoOneLocalFourier( )
+Node   4 entered DoOneLocalFourier( )
+Node   5 entered DoOneLocalFourier( )
+Node   6 entered DoOneLocalFourier( )
+Node   0 entered DoOneLocalFourier( )
+Node   7 entered DoOneLocalFourier( )
+  8 processors,    1048576 elements,    252.84 mega-sums per second
+----------------------------------------
+Testing NUMELEMENTS=524288
+Running with 1 nodes (processes)
+Node   0 entered DoOneLocalFourier( )
+  1 processors,     524288 elements,     42.11 mega-sums per second
+----------------------------------------
+Running with 2 nodes (processes)
+Node   0 entered DoOneLocalFourier( )
+Node   1 entered DoOneLocalFourier( )
+  2 processors,     524288 elements,     80.12 mega-sums per second
+----------------------------------------
+Running with 4 nodes (processes)
+Node   1 entered DoOneLocalFourier( )
+Node   2 entered DoOneLocalFourier( )
+Node   0 entered DoOneLocalFourier( )
+Node   3 entered DoOneLocalFourier( )
+  4 processors,     524288 elements,    147.89 mega-sums per second
+----------------------------------------
+Running with 6 nodes (processes)
+Node   1 entered DoOneLocalFourier( )
+Node   2 entered DoOneLocalFourier( )
+Node   3 entered DoOneLocalFourier( )
+Node   4 entered DoOneLocalFourier( )
+Node   0 entered DoOneLocalFourier( )
+Node   5 entered DoOneLocalFourier( )
+  6 processors,     524288 elements,    201.76 mega-sums per second
+----------------------------------------
+Running with 8 nodes (processes)
+Node   1 entered DoOneLocalFourier( )
+Node   2 entered DoOneLocalFourier( )
+Node   3 entered DoOneLocalFourier( )
+Node   4 entered DoOneLocalFourier( )
+Node   5 entered DoOneLocalFourier( )
+Node   6 entered DoOneLocalFourier( )
+Node   0 entered DoOneLocalFourier( )
+Node   7 entered DoOneLocalFourier( )
+  8 processors,     524288 elements,    213.36 mega-sums per second
+----------------------------------------
+All tests done.

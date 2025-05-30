@@ -24,7 +24,7 @@
 
 // how many elements are in the big signal:
 
-#define NUMELEMENTS	(1*1024*1024)
+#define NUMELEMENTS	(524288)
 
 // only consider this many periods (this is enough to uncover the secret sine waves):
 
